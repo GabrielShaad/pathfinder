@@ -75,7 +75,7 @@ jobs:
       - name: the bundled server starts on the private runtime
         run: |
           echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
-            | PATHFINDER_HOME="$RUNNER_TEMP/ws" timeout 20 "$RUNNER_TEMP/data/node/bin/node" dist/server.mjs | grep '"name":"pathfinder"'
+            | PATHFINDER_HOME="$RUNNER_TEMP/ws" "$RUNNER_TEMP/data/node/bin/node" dist/server.mjs | head -n 1 | grep '"name":"pathfinder"'
 
   installer-windows:
     runs-on: windows-latest
