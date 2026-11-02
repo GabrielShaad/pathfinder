@@ -1,0 +1,76 @@
+# Synthetic profile for tests and demos. Not a real person.
+basics:
+  name: Maria Exemplo
+  email: maria.exemplo@example.com
+  phone: "+55 11 91234-5678"
+  location: São Paulo, SP
+  links:
+    - { label: LinkedIn, url: "https://www.linkedin.com/in/maria-exemplo" }
+  headlines:
+    pt: Analista de Marketing Digital | CRM e Automação
+    en: Digital Marketing Analyst | CRM and Marketing Automation
+  years_experience: 6
+  language: pt
+  i18n:
+    en: { location: "São Paulo, Brazil" }
+career_facts:
+  - id: career-summary
+    text: 6 anos em marketing digital, com foco em CRM, e-mail marketing e automação para empresas de educação e varejo.
+    kind: responsibility
+skills:
+  - { name: CRM, category: Marketing, aliases: [] }
+  - { name: E-mail marketing, category: Marketing, aliases: [Email marketing] }
+  - { name: Automação de marketing, category: Marketing, aliases: [Marketing automation] }
+  - { name: RD Station, category: Ferramentas, aliases: [] }
+  - { name: HubSpot, category: Ferramentas, aliases: [] }
+  - { name: Google Analytics, category: Ferramentas, aliases: [GA4] }
+  - { name: Testes A/B, category: Marketing, aliases: [A/B testing] }
+  - { name: SQL, category: Dados, level: familiar, aliases: [] }
+roles:
+  - id: escola-alfa
+    company: Escola Alfa
+    title: Analista de Marketing Pleno
+    location: São Paulo, SP
+    start: 2022-03
+    end: null
+    i18n:
+      en: { title: "Marketing Analyst", location: "São Paulo, Brazil" }
+    facts:
+      - id: alfa-crm-migracao
+        text: Liderou a migração do CRM de planilhas para o HubSpot, com 45.000 contatos segmentados.
+        kind: achievement
+      - id: alfa-nurturing
+        text: Criou 12 fluxos de nutrição de leads que elevaram a taxa de abertura de 18% para 27,5%.
+        kind: achievement
+      - id: alfa-campanhas
+        text: Responsável pelas campanhas sazonais de matrícula em e-mail, WhatsApp e SMS.
+        kind: responsibility
+  - id: loja-beta
+    company: Loja Beta
+    title: Assistente de Marketing
+    employment_type: full-time
+    start: 2019-02
+    end: 2022-02
+    i18n:
+      en: { title: "Marketing Assistant" }
+    facts:
+      - id: beta-newsletter
+        text: Produziu a newsletter semanal para 1.200 clientes ativos.
+        kind: responsibility
+      - id: beta-testes
+        text: Conduziu testes A/B de assunto de e-mail em parceria com o time de vendas.
+        kind: responsibility
+education:
+  - id: usp-com
+    institution: Universidade de São Paulo
+    degree: Bacharelado
+    field: Comunicação Social
+    start: 2014-02
+    end: 2018-12
+    i18n:
+      en: { degree: "Bachelor's degree", field: "Social Communication" }
+languages:
+  - { name: Português, level: Nativo, i18n: { en: { name: Portuguese, level: Native } } }
+  - { name: Inglês, level: Avançado, i18n: { en: { name: English, level: Advanced } } }
+certifications:
+  - { name: HubSpot Inbound Marketing, issuer: HubSpot Academy, year: "2023" }

@@ -1,0 +1,31 @@
+{
+  "language": "pt",
+  "headline": "Analista de Marketing Digital | CRM e Automação",
+  "summary": {
+    "text": "Analista de marketing digital com 6 anos de experiência em CRM, e-mail marketing e automação para educação e varejo. Liderou a migração de 45.000 contatos para o HubSpot e elevou a taxa de abertura de 18% para 27,5% com fluxos de nutrição.",
+    "fact_ids": ["career-summary", "alfa-crm-migracao", "alfa-nurturing"]
+  },
+  "skills": [
+    { "category": "Marketing", "items": ["CRM", "E-mail marketing", "Automação de marketing", "Testes A/B"] },
+    { "category": "Ferramentas", "items": ["HubSpot", "RD Station", "Google Analytics"] },
+    { "category": "Conhecimentos básicos", "items": ["SQL"] }
+  ],
+  "experience": [
+    {
+      "role_id": "escola-alfa",
+      "bullets": [
+        { "text": "Liderou a migração do CRM de planilhas para o HubSpot, organizando 45.000 contatos em segmentos.", "fact_ids": ["alfa-crm-migracao"] },
+        { "text": "Criou 12 fluxos de nutrição de leads que elevaram a taxa de abertura de e-mail de 18% para 27,5%.", "fact_ids": ["alfa-nurturing"] },
+        { "text": "Responsável pelas campanhas sazonais de matrícula em e-mail, WhatsApp e SMS.", "fact_ids": ["alfa-campanhas"] }
+      ]
+    },
+    {
+      "role_id": "loja-beta",
+      "bullets": [
+        { "text": "Produziu a newsletter semanal para uma base de 1.200 clientes ativos.", "fact_ids": ["beta-newsletter"] },
+        { "text": "Conduziu testes A/B de assunto de e-mail em parceria com o time de vendas.", "fact_ids": ["beta-testes"] }
+      ]
+    }
+  ],
+  "education_ids": ["usp-com"]
+}

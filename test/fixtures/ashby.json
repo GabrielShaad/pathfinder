@@ -1,0 +1,33 @@
+{
+ "jobs": [
+  {
+   "id": "0be1b52c-2401-4ae2-b7fc-5d018c1ff96f",
+   "title": "Technical Customer Success Manager - EMEA",
+   "department": "Sales & Customer Success",
+   "team": "Customer Success",
+   "employmentType": "FullTime",
+   "location": "Remote (EMEA)",
+   "shouldDisplayCompensationOnJobPostings": false,
+   "secondaryLocations": [],
+   "publishedAt": "2026-09-18T08:41:19.683+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressCountry": "European Union"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/posthog/0be1b52c-2401-4ae2-b7fc-5d018c1ff96f",
+   "applyUrl": "https://jobs.ashbyhq.com/posthog/0be1b52c-2401-4ae2-b7fc-5d018c1ff96f/application",
+   "descriptionHtml": "<h2>About PostHog</h2><p style=\"min-height:1.5em\">PostHog is your product\u2019s context layer. It ingests and stores your analytics, errors, replays, and business data so you and your agents can query and act on it.</p><p style=\"min-height:1.5em\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" hre",
+   "descriptionPlain": "ABOUT POSTHOG\n\nPostHog is your product\u2019s context layer. It ingests and stores your analytics, errors, replays, and business data so you and your agents can query and act on it.\n\nWe launched out of Y Combinator's W20 cohort https://posthog.com/handbook/story. We've since shipped more than a dozen pro",
+   "compensation": {
+    "compensationTierSummary": null,
+    "scrapeableCompensationSalarySummary": null,
+    "compensationTiers": [],
+    "summaryComponents": []
+   }
+  }
+ ]
+}

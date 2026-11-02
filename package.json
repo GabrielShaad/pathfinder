@@ -1,0 +1,39 @@
+{
+  "name": "pathfinder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Claude Code plugin: an interview, one ATS-friendly resume and an on-demand job search for people in Brazil, in any field.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm typecheck && pnpm test && pnpm build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "docx": "^9.15.1",
+    "exceljs": "^4.4.0",
+    "jszip": "^3.10.2",
+    "pdfkit": "^0.20.2",
+    "unpdf": "^1",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/pdfkit": "^0.17.7",
+    "esbuild": "^0.28.2",
+    "tsx": "^4",
+    "typescript": "^5",
+    "vitest": "^4"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}

@@ -1,0 +1,112 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (${{ matrix.os }}, node ${{ matrix.node }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [22, 24]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm build
+      - run: pnpm test
+
+  bundle-and-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: dist/ matches the sources
+        run: |
+          pnpm build
+          git diff --exit-code -- dist/ || (echo "::error::dist/ is stale: run pnpm build and commit it" && exit 1)
+      - name: versions match
+        run: |
+          node -e '
+            const a = require("./package.json").version;
+            const b = require("./.claude-plugin/plugin.json").version;
+            if (a !== b) { console.error(`package.json ${a} != plugin.json ${b}`); process.exit(1); }'
+      - name: plugin manifest is valid
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          claude plugin validate .
+
+  installer-unix:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: a wrong hash installs nothing
+        run: |
+          if PATHFINDER_NODE_EXPECTED_SHA256=0000 bash scripts/install-node.sh "$RUNNER_TEMP/bad"; then exit 1; fi
+          test ! -e "$RUNNER_TEMP/bad/node"
+      - name: install, re-run and check
+        run: |
+          bash scripts/install-node.sh "$RUNNER_TEMP/data"
+          bash scripts/install-node.sh "$RUNNER_TEMP/data" | grep "já estava instalado"
+          bash scripts/install-node.sh "$RUNNER_TEMP/data" --check
+          "$RUNNER_TEMP/data/node/bin/node" --version
+      - name: the bundled server starts on the private runtime
+        run: |
+          echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
+            | PATHFINDER_HOME="$RUNNER_TEMP/ws" timeout 20 "$RUNNER_TEMP/data/node/bin/node" dist/server.mjs | grep '"name":"pathfinder"'
+
+  installer-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - name: a wrong hash installs nothing (Windows PowerShell 5.1)
+        run: |
+          $env:PATHFINDER_NODE_EXPECTED_SHA256 = '0000'
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\bad"
+          if ($LASTEXITCODE -eq 0) { exit 1 }
+          if (Test-Path "$env:RUNNER_TEMP\bad\node") { exit 1 }
+          exit 0
+      - name: install, re-run and check (Windows PowerShell 5.1)
+        run: |
+          Remove-Item Env:PATHFINDER_NODE_EXPECTED_SHA256 -ErrorAction SilentlyContinue
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\data"
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\data" -Check
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          & "$env:RUNNER_TEMP\data\node\bin\node.exe" --version
+      - name: the configured command path (no .exe) starts the server
+        shell: bash
+        run: |
+          DATA="$(cygpath -m "$RUNNER_TEMP/data")"
+          echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
+            | PATHFINDER_HOME="$RUNNER_TEMP/ws" timeout 30 node -e '
+                const { spawn } = require("node:child_process");
+                const child = spawn(process.argv[1], ["dist/server.mjs"], { stdio: ["pipe", "inherit", "inherit"] });
+                process.stdin.pipe(child.stdin);
+                child.on("error", (e) => { console.error(e.message); process.exit(1); });
+              ' "$DATA/node/bin/node" | grep '"name":"pathfinder"'

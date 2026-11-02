@@ -1,0 +1,16 @@
+{
+  "description": "Lets Pathfinder's own tools run without a permission prompt. They only read and write the Pathfinder folder and query public job sites (ADR-0006).",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__plugin_pathfinder_pathfinder__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"allow\",\"permissionDecisionReason\":\"Pathfinder tool: only the Pathfinder folder and public job sites\"}}'"
+          }
+        ]
+      }
+    ]
+  }
+}

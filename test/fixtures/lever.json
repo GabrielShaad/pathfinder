@@ -1,0 +1,44 @@
+[
+ {
+  "additionalPlain": "\u00a0\nBenefits & Perks:\n\u00a0\nHome office;\nCompetitive compensation based on experience;\nCareer plans to allow for extensive growth in the company;\nInternational Projects;\nOowlish English Program (Technical and Conversational);\nGames and Competitions;\n\u00a0\n\u00a0\nYou can also apply here:\n\u00a0\nWebsite: https://www.oowl",
+  "additional": "<div>&nbsp;</div>\n<div><strong style=\"font-size: 18px;\">Benefits &amp; Perks:</strong></div>\n<div>&nbsp;</div>\n<div><span style=\"font-size: 11pt;\">Home office;</span></div>\n<div><span style=\"font-size: 11pt;\">Competitive compensation based on experience;</span></div>\n<div><span style=\"font-size: 11p",
+  "categories": {
+   "commitment": "Remote",
+   "department": "IT Operations",
+   "location": "S\u00e3o Paulo",
+   "team": "Python Engineer",
+   "allLocations": [
+    "S\u00e3o Paulo",
+    "Greater Fortaleza",
+    "Rio de Janeiro, Rio de Janeiro, Brazil",
+    "Florian\u00f3polis, Santa Catarina, Brazil",
+    "Mexico City",
+    "Buenos Aires Province",
+    "Bogota,D.C., Capital District"
+   ]
+  },
+  "createdAt": 1782752277345,
+  "descriptionPlain": "Join Our Team\n\u00a0\nOowlish, one of Latin America's rapidly expanding software development companies, is seeking experienced technology professionals to enhance our diverse and vibrant team.\n\u00a0\nAs a valued member of Oowlish, you will collaborate with premier clients from the United States and Europe, con",
+  "description": "<div><strong>Join Our Team</strong></div>\n<div>&nbsp;</div>\n<div>Oowlish, one of Latin America's rapidly expanding software development companies, is seeking experienced technology professionals to enhance our diverse and vibrant team.</div>\n<div>&nbsp;</div>\n<div>As a valued member of Oowlish, you ",
+  "id": "e7ce2491-2ec1-499e-b7f5-931bcb6f19e2",
+  "lists": [
+   {
+    "text": "Key Responsibilities:",
+    "content": "\n<li data-section-id=\"gbarls\" data-start=\"1646\" data-end=\"1714\">Design and develop modern web applications using React and Python.</li>\n<li data-section-id=\"hozlp\" data-start=\"1715\" data-end=\"1788\">Build intuitive chat-based user interfaces for AI-powered applications.</li>\n<li data-section-id=\"1j8s4jp\" data-start=\"1789\" data-end=\"1870\">Integrate frontend applications with AWS Bedrock AI services through REST APIs.</li>\n<li data-section-id=\"1171zws\" data-start=\"1871\" data-end=\"1935\">Develop scalable backend services supporting web applications.</li>\n<li data-section-id=\"18k87n4\" data-start=\"1936\" data-end=\"1994\">Build secure authentication and user session management.</li>\n<li data-section-id=\"1imob6t\" data-start=\"1995\" data-end=\"2061\">Optimize application performance, responsiveness, and usability.</li>\n<li data-section-id=\"1inzdzl\" data-start=\"2062\" data-end=\"2146\">Collaborate closely with AI engineers to integrate conversational AI capabilities.</li>\n<li data-section-id=\"1tc209f\" data-start=\"2147\" data-end=\"2222\">Build reusable UI components and maintain clean application architecture.</li>\n<li data-section-id=\"1ip6my0\" data-start=\"2223\" data-end=\"2286\">Participate in technical design discussions and code reviews.</li>\n<li data-section-id=\"15je91s\" data-start=\"2287\" data-end=\"2342\">Ensure high-quality, maintainable, and scalable code.</li>\n"
+   },
+   {
+    "text": "Requirements:",
+    "content": "\n<li data-section-id=\"1nxfzda\" data-start=\"2365\" data-end=\"2424\">5+ years of professional software engineering experience.</li>\n<li data-section-id=\"73akvt\" data-start=\"2425\" data-end=\"2463\">Strong React development experience.</li>\n<li data-section-id=\"1x4tmh8\" data-start=\"2464\" data-end=\"2503\">Strong Python development experience.</li>\n<li data-section-id=\"1tgilrc\" data-start=\"2504\" data-end=\"2550\">Experience building modern web applications.</li>\n<li data-section-id=\"11f356\" data-start=\"2551\" data-end=\"2584\">Experience consuming REST APIs.</li>\n<li data-section-id=\"2tt2bl\" data-start=\"2585\" data-end=\"2630\">Experience working with AWS cloud services.</li>\n<li data-section-id=\"1rwoil8\" data-start=\"2631\" data-end=\"2672\">Strong frontend architecture knowledge.</li>\n<li data-section-id=\"5l6tid\" data-start=\"2673\" data-end=\"2711\">Strong English communication skills.</li>\n<li data-section-id=\"7e0za6\" data-start=\"2712\" data-end=\"2755\">Experience working in Agile environments.</li>\n"
+   }
+  ],
+  "text": "Full Stack Web Engineer (Python & React)",
+  "country": "BR",
+  "workplaceType": "remote",
+  "opening": "<div><strong>Join Our Team</strong></div>\n<div>&nbsp;</div>\n<div>Oowlish, one of Latin America's rapidly expanding software development companies, is seeking experienced technology professionals to enhance our diverse and vibrant team.</div>\n<div>&nbsp;</div>\n<div>As a valued member of Oowlish, you ",
+  "openingPlain": "Join Our Team\n\u00a0\nOowlish, one of Latin America's rapidly expanding software development companies, is seeking experienced technology professionals to enhance our diverse and vibrant team.\n\u00a0\nAs a valued member of Oowlish, you will collaborate with premier clients from the United States and Europe, con",
+  "descriptionBody": "<h3 data-end=\"488\" data-start=\"468\" data-section-id=\"j4a9uj\">About the Role</h3>\n<p data-end=\"1118\" data-start=\"935\">We are looking for an experienced <strong data-end=\"1004\" data-start=\"969\">Senior Web Application Engineer</strong> to build a modern web-based chat application that connects users wi",
+  "descriptionBodyPlain": "About the Role\nWe are looking for an experienced Senior Web Application Engineer to build a modern web-based chat application that connects users with an AI-powered backend built on AWS Bedrock.\nThis role focuses on designing and developing an intuitive, responsive, and scalable chat interface while",
+  "hostedUrl": "https://jobs.lever.co/oowlish/e7ce2491-2ec1-499e-b7f5-931bcb6f19e2",
+  "applyUrl": "https://jobs.lever.co/oowlish/e7ce2491-2ec1-499e-b7f5-931bcb6f19e2/apply"
+ }
+]

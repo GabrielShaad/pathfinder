@@ -1,0 +1,147 @@
+Bundled license information:
+
+safe-buffer/index.js:
+  /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+xmlchars/xml/1.0/ed5.js:
+  /**
+   * Character classes and associated utilities for the 5th edition of XML 1.0.
+   *
+   * @author Louis-Dominique Dubeau
+   * @license MIT
+   * @copyright Louis-Dominique Dubeau
+   */
+
+xmlchars/xml/1.1/ed2.js:
+  /**
+   * Character classes and associated utilities for the 2nd edition of XML 1.1.
+   *
+   * @author Louis-Dominique Dubeau
+   * @license MIT
+   * @copyright Louis-Dominique Dubeau
+   */
+
+xmlchars/xmlns/1.0/ed3.js:
+  /**
+   * Character class utilities for XML NS 1.0 edition 3.
+   *
+   * @author Louis-Dominique Dubeau
+   * @license MIT
+   * @copyright Louis-Dominique Dubeau
+   */
+
+normalize-path/index.js:
+  /*!
+   * normalize-path <https://github.com/jonschlinkert/normalize-path>
+   *
+   * Copyright (c) 2014-2018, Jon Schlinkert.
+   * Released under the MIT License.
+   */
+
+archiver/lib/error.js:
+archiver/lib/core.js:
+  /**
+   * Archiver Core
+   *
+   * @ignore
+   * @license [MIT]{@link https://github.com/archiverjs/node-archiver/blob/master/LICENSE}
+   * @copyright (c) 2012-2014 Chris Talkington, contributors.
+   */
+
+crc-32/crc32.js:
+  /*! crc32.js (C) 2014-present SheetJS -- http://sheetjs.com */
+
+zip-stream/index.js:
+  /**
+   * ZipStream
+   *
+   * @ignore
+   * @license [MIT]{@link https://github.com/archiverjs/node-zip-stream/blob/master/LICENSE}
+   * @copyright (c) 2014 Chris Talkington, contributors.
+   */
+
+archiver/lib/plugins/zip.js:
+  /**
+   * ZIP Format Plugin
+   *
+   * @module plugins/zip
+   * @license [MIT]{@link https://github.com/archiverjs/node-archiver/blob/master/LICENSE}
+   * @copyright (c) 2012-2014 Chris Talkington, contributors.
+   */
+
+archiver/lib/plugins/tar.js:
+  /**
+   * TAR Format Plugin
+   *
+   * @module plugins/tar
+   * @license [MIT]{@link https://github.com/archiverjs/node-archiver/blob/master/LICENSE}
+   * @copyright (c) 2012-2014 Chris Talkington, contributors.
+   */
+
+archiver/lib/plugins/json.js:
+  /**
+   * JSON Format Plugin
+   *
+   * @module plugins/json
+   * @license [MIT]{@link https://github.com/archiverjs/node-archiver/blob/master/LICENSE}
+   * @copyright (c) 2012-2014 Chris Talkington, contributors.
+   */
+
+archiver/index.js:
+  /**
+   * Archiver Vending
+   *
+   * @ignore
+   * @license [MIT]{@link https://github.com/archiverjs/node-archiver/blob/master/LICENSE}
+   * @copyright (c) 2012-2014 Chris Talkington, contributors.
+   */
+
+tmp/lib/tmp.js:
+  /*!
+   * Tmp
+   *
+   * Copyright (c) 2011-2017 KARASZI Istvan <github@spam.raszi.hu>
+   *
+   * MIT Licensed
+   */
+
+unpdf/dist/index.mjs:
+unpdf/dist/index.mjs:
+  /**
+  * Derived from the PDF.js project by the Mozilla Foundation.
+  * @see https://github.com/mozilla/pdf.js/blob/b8de9a372f9bbf7e33adb362eeae5ef1919dba73/src/display/canvas_factory.js#L18
+  * @license Apache-2.0
+  */
+
+@noble/hashes/esm/utils.js:
+  /*! noble-hashes - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+
+@noble/ciphers/esm/utils.js:
+  /*! noble-ciphers - MIT License (c) 2023 Paul Miller (paulmillr.com) */
+
+docx/dist/index.mjs:
+  /**
+  * @license MIT
+  * Adapted from stream-browserify 3.0.0's base Stream and pipe implementation (MIT).
+  * Copyright Joyent, Inc. and other Node contributors.
+  * Copyright (c) James Halliday
+  *
+  * Permission is hereby granted, free of charge, to any person obtaining a
+  * copy of this software and associated documentation files (the
+  * "Software"), to deal in the Software without restriction, including
+  * without limitation the rights to use, copy, modify, merge, publish,
+  * distribute, sublicense, and/or sell copies of the Software, and to permit
+  * persons to whom the Software is furnished to do so, subject to the
+  * following conditions:
+  *
+  * The above copyright notice and this permission notice shall be included
+  * in all copies or substantial portions of the Software.
+  *
+  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+  * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+  * NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+  * USE OR OTHER DEALINGS IN THE SOFTWARE.
+  */

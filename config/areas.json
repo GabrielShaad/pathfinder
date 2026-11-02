@@ -1,0 +1,101 @@
+{
+  "_comment": "Professional areas offered in the interview and the board categories searched for each. Slugs verified on 2026-11-02: weworkremotely.com/categories/<slug>.rss, remotive.com/api/remote-jobs/categories, jobicy.com/api/v2/remote-jobs?get=industries.",
+  "areas": {
+    "technology": {
+      "label": "Tecnologia (desenvolvimento, TI, infraestrutura, QA)",
+      "wwr": ["remote-full-stack-programming-jobs", "remote-back-end-programming-jobs", "remote-front-end-programming-jobs", "remote-devops-sysadmin-jobs"],
+      "remotive": ["software-development", "devops"],
+      "jobicy": ["engineering", "admin"],
+      "remoteok": true,
+      "seed_companies": true
+    },
+    "data": {
+      "label": "Dados (análise, BI, ciência de dados)",
+      "wwr": ["all-other-remote-jobs"],
+      "remotive": ["data"],
+      "jobicy": ["data-science"],
+      "remoteok": true,
+      "seed_companies": true
+    },
+    "product": {
+      "label": "Produto e projetos",
+      "wwr": ["remote-product-jobs"],
+      "remotive": ["product", "project-management"],
+      "jobicy": ["management", "project-management"],
+      "seed_companies": true
+    },
+    "design": {
+      "label": "Design (UX/UI, gráfico, conteúdo visual)",
+      "wwr": ["remote-design-jobs"],
+      "remotive": ["design"],
+      "jobicy": ["design-multimedia", "web-app-design"],
+      "seed_companies": true
+    },
+    "marketing": {
+      "label": "Marketing e comunicação",
+      "wwr": ["remote-sales-and-marketing-jobs"],
+      "remotive": ["marketing", "communications"],
+      "jobicy": ["marketing", "seo"]
+    },
+    "sales": {
+      "label": "Vendas e relacionamento com clientes",
+      "wwr": ["remote-sales-and-marketing-jobs"],
+      "remotive": ["sales", "business-development"],
+      "jobicy": ["seller", "business"]
+    },
+    "support": {
+      "label": "Atendimento, suporte e sucesso do cliente",
+      "wwr": ["remote-customer-support-jobs"],
+      "remotive": ["customer-service"],
+      "jobicy": ["supporting", "technical-support"]
+    },
+    "finance": {
+      "label": "Finanças, contabilidade e administrativo-financeiro",
+      "wwr": ["remote-management-and-finance-jobs"],
+      "remotive": ["finance"],
+      "jobicy": ["accounting-finance"]
+    },
+    "hr": {
+      "label": "Recursos humanos e recrutamento",
+      "wwr": ["all-other-remote-jobs"],
+      "remotive": ["human-resources"],
+      "jobicy": ["hr"]
+    },
+    "legal": {
+      "label": "Jurídico e compliance",
+      "wwr": ["all-other-remote-jobs"],
+      "remotive": ["legal", "compliance"],
+      "jobicy": ["legal"]
+    },
+    "operations": {
+      "label": "Operações, logística e administração",
+      "wwr": ["remote-management-and-finance-jobs", "all-other-remote-jobs"],
+      "remotive": ["operations", "supply-chain"],
+      "jobicy": ["admin-support", "management"]
+    },
+    "writing": {
+      "label": "Redação, tradução e conteúdo",
+      "wwr": ["all-other-remote-jobs"],
+      "remotive": ["writing"],
+      "jobicy": ["copywriting"]
+    },
+    "health": {
+      "label": "Saúde",
+      "wwr": ["all-other-remote-jobs"],
+      "remotive": ["medical"],
+      "jobicy": ["healthcare"]
+    },
+    "education": {
+      "label": "Educação",
+      "wwr": ["all-other-remote-jobs"],
+      "remotive": ["education"],
+      "jobicy": ["education"]
+    },
+    "other": {
+      "label": "Outra área",
+      "wwr": ["all-other-remote-jobs"],
+      "remotive": ["all-others"],
+      "jobicy": []
+    }
+  }
+}

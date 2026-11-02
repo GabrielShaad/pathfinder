@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "pathfinder",
+  "owner": { "name": "Gabriel Alexandre", "url": "https://github.com/GabrielShaad" },
+  "metadata": {
+    "description": "Pathfinder: currículo para ATS e busca de vagas com o Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "pathfinder",
+      "source": "./",
+      "description": "Entrevista, currículo otimizado para ATS, busca de vagas (Brasil e remotas no exterior), cartas de apresentação e planilha de acompanhamento.",
+      "category": "productivity"
+    }
+  ]
+}

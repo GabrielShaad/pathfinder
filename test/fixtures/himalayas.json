@@ -1,0 +1,108 @@
+{
+ "jobs": [
+  {
+   "title": "Solutions Engineer",
+   "excerpt": "Company OverviewAt Motorola Solutions, we believe that everything starts with our people.",
+   "companyName": "Motorola Solutions",
+   "companySlug": "motorola-solutions",
+   "companyLogo": "https://cdn-images.himalayas.app/wrwjjejxt406bwtydu0acmhx0lhh",
+   "employmentType": "Full Time",
+   "minSalary": 85000,
+   "maxSalary": 100000,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Senior"
+   ],
+   "currency": "USD",
+   "locationRestrictions": [
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    14
+   ],
+   "categories": [
+    "Solutions-Engineer",
+    "Sales-Engineer",
+    "Pre-Sales-Engineer",
+    "Solutions-Consultant",
+    "Solutions-Sales-Engineer",
+    "Technical-Solutions-Engineer",
+    "IT-Solutions-Engineer",
+    "Solutions-Design-Engineer",
+    "Solution-Design-Engineer",
+    "Solution-Sales-Engineer",
+    "Solutions-Application-Engineer",
+    "Product-Solution-Engineer",
+    "Senior-Solutions-Engineer"
+   ],
+   "parentCategories": [
+    "Developer",
+    "Sales"
+   ],
+   "description": "<h3><b>Company Overview</b></h3><p>At <a href=\"https://himalayas.app/companies/motorola-solutions\">Motorola Solutions</a>, we believe that everything starts with our people. We\u2019re a global close-knit community, united by the relentless pursuit to help keep people safer everywhere. We build and conne",
+   "pubDate": 1793158089,
+   "expiryDate": 1798342087,
+   "applicationLink": "https://himalayas.app/companies/motorola-solutions/jobs/solutions-engineer-3356380033?utm_source=api",
+   "guid": "https://himalayas.app/companies/motorola-solutions/jobs/solutions-engineer-3356380033"
+  },
+  {
+   "title": "Entry Level Social Media Lead",
+   "excerpt": "Knowt is a study app that around 8 million high schoolers use to get through AP classes, the SAT and ACT, finals, and college apps.",
+   "companyName": "Knowt Inc.",
+   "companySlug": "knowt-inc",
+   "companyLogo": "https://cdn-images.himalayas.app/6iulrug4rdnphue7v3yr5rsrmzkv",
+   "employmentType": "Part Time",
+   "minSalary": null,
+   "maxSalary": null,
+   "salaryPeriod": "annual",
+   "seniority": [
+    "Entry-level"
+   ],
+   "currency": null,
+   "locationRestrictions": [
+    "Canada",
+    "United States"
+   ],
+   "timezoneRestrictions": [
+    -10,
+    -9,
+    -8,
+    -7,
+    -6,
+    -5,
+    -4,
+    -3.5,
+    14
+   ],
+   "categories": [
+    "Social-Media-Management",
+    "Content-Creation",
+    "Digital-Marketing",
+    "TikTok-Marketing",
+    "Instagram-Marketing",
+    "Entry-Level-Social-Media-Coordinator",
+    "Social-Media-Lead",
+    "Remote-Entry-Level-Social-Media-Manager",
+    "Social-Media-Team-Lead",
+    "Junior-Social-Media-Manager",
+    "Social-Media-Marketing-Associate",
+    "Social-Media-Associate",
+    "Social-Media"
+   ],
+   "parentCategories": [
+    "Marketing"
+   ],
+   "description": "<p>Knowt is a study app that around 8 million high schoolers use to get through AP classes, the SAT and ACT, finals, and college apps. You'll be the lead behind Knowt's high school social presence, owning our TikTok and Instagram (@getknowt) end to end and turning them into a channel students actual",
+   "pubDate": 1793158053,
+   "expiryDate": 1798342052,
+   "applicationLink": "https://himalayas.app/companies/knowt-inc/jobs/entry-level-social-media-lead?utm_source=api",
+   "guid": "https://himalayas.app/companies/knowt-inc/jobs/entry-level-social-media-lead"
+  }
+ ]
+}

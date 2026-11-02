@@ -1,0 +1,435 @@
+{
+ "_comment": "Seed watchlist for the technology area: remote-friendly companies with public ATS job boards, verified 2026-10-28 (from Horizon).",
+ "companies": [
+  {
+   "name": "PostHog",
+   "ats": "ashby",
+   "token": "posthog"
+  },
+  {
+   "name": "Supabase",
+   "ats": "ashby",
+   "token": "supabase"
+  },
+  {
+   "name": "Linear",
+   "ats": "ashby",
+   "token": "linear"
+  },
+  {
+   "name": "Vercel",
+   "ats": "greenhouse",
+   "token": "vercel"
+  },
+  {
+   "name": "n8n",
+   "ats": "ashby",
+   "token": "n8n"
+  },
+  {
+   "name": "Replit",
+   "ats": "ashby",
+   "token": "replit"
+  },
+  {
+   "name": "Ramp",
+   "ats": "ashby",
+   "token": "ramp"
+  },
+  {
+   "name": "Notion",
+   "ats": "ashby",
+   "token": "notion"
+  },
+  {
+   "name": "LangChain",
+   "ats": "ashby",
+   "token": "langchain"
+  },
+  {
+   "name": "Airbyte",
+   "ats": "ashby",
+   "token": "airbyte"
+  },
+  {
+   "name": "Warp",
+   "ats": "ashby",
+   "token": "warp"
+  },
+  {
+   "name": "Resend",
+   "ats": "ashby",
+   "token": "resend"
+  },
+  {
+   "name": "Clerk",
+   "ats": "ashby",
+   "token": "clerk"
+  },
+  {
+   "name": "Neon",
+   "ats": "lever",
+   "token": "neon"
+  },
+  {
+   "name": "Temporal",
+   "ats": "ashby",
+   "token": "temporal"
+  },
+  {
+   "name": "Zapier",
+   "ats": "ashby",
+   "token": "zapier"
+  },
+  {
+   "name": "Oyster",
+   "ats": "ashby",
+   "token": "oyster"
+  },
+  {
+   "name": "Remote",
+   "ats": "greenhouse",
+   "token": "remote"
+  },
+  {
+   "name": "Modal",
+   "ats": "ashby",
+   "token": "modal"
+  },
+  {
+   "name": "ElevenLabs",
+   "ats": "ashby",
+   "token": "elevenlabs"
+  },
+  {
+   "name": "Render",
+   "ats": "ashby",
+   "token": "render"
+  },
+  {
+   "name": "Railway",
+   "ats": "ashby",
+   "token": "railway"
+  },
+  {
+   "name": "Netlify",
+   "ats": "greenhouse",
+   "token": "netlify"
+  },
+  {
+   "name": "Tailscale",
+   "ats": "greenhouse",
+   "token": "tailscale"
+  },
+  {
+   "name": "Zed",
+   "ats": "ashby",
+   "token": "zed"
+  },
+  {
+   "name": "Sanity",
+   "ats": "ashby",
+   "token": "sanity"
+  },
+  {
+   "name": "Contentful",
+   "ats": "greenhouse",
+   "token": "contentful"
+  },
+  {
+   "name": "Storyblok",
+   "ats": "greenhouse",
+   "token": "storyblok"
+  },
+  {
+   "name": "Webflow",
+   "ats": "ashby",
+   "token": "webflow"
+  },
+  {
+   "name": "Miro",
+   "ats": "ashby",
+   "token": "miro"
+  },
+  {
+   "name": "Calendly",
+   "ats": "greenhouse",
+   "token": "calendly"
+  },
+  {
+   "name": "Typeform",
+   "ats": "greenhouse",
+   "token": "typeform"
+  },
+  {
+   "name": "Close",
+   "ats": "ashby",
+   "token": "close"
+  },
+  {
+   "name": "Gorgias",
+   "ats": "ashby",
+   "token": "gorgias"
+  },
+  {
+   "name": "GitLab",
+   "ats": "greenhouse",
+   "token": "gitlab"
+  },
+  {
+   "name": "Stripe",
+   "ats": "greenhouse",
+   "token": "stripe"
+  },
+  {
+   "name": "Figma",
+   "ats": "greenhouse",
+   "token": "figma"
+  },
+  {
+   "name": "Airtable",
+   "ats": "greenhouse",
+   "token": "airtable"
+  },
+  {
+   "name": "Mozilla",
+   "ats": "greenhouse",
+   "token": "mozilla"
+  },
+  {
+   "name": "Wikimedia",
+   "ats": "greenhouse",
+   "token": "wikimedia"
+  },
+  {
+   "name": "Canonical",
+   "ats": "greenhouse",
+   "token": "canonical"
+  },
+  {
+   "name": "Elastic",
+   "ats": "greenhouse",
+   "token": "elastic"
+  },
+  {
+   "name": "Grafana Labs",
+   "ats": "greenhouse",
+   "token": "grafanalabs"
+  },
+  {
+   "name": "Datadog",
+   "ats": "greenhouse",
+   "token": "datadog"
+  },
+  {
+   "name": "Cloudflare",
+   "ats": "greenhouse",
+   "token": "cloudflare"
+  },
+  {
+   "name": "Twilio",
+   "ats": "greenhouse",
+   "token": "twilio"
+  },
+  {
+   "name": "MongoDB",
+   "ats": "greenhouse",
+   "token": "mongodb"
+  },
+  {
+   "name": "Sentry",
+   "ats": "ashby",
+   "token": "sentry"
+  },
+  {
+   "name": "Khan Academy",
+   "ats": "greenhouse",
+   "token": "khanacademy"
+  },
+  {
+   "name": "Nubank",
+   "ats": "ashby",
+   "token": "nubank"
+  },
+  {
+   "name": "VTEX",
+   "ats": "greenhouse",
+   "token": "vtex"
+  },
+  {
+   "name": "EBANX",
+   "ats": "greenhouse",
+   "token": "ebanx"
+  },
+  {
+   "name": "Wildlife Studios",
+   "ats": "greenhouse",
+   "token": "wildlifestudios"
+  },
+  {
+   "name": "Toptal",
+   "ats": "lever",
+   "token": "toptal"
+  },
+  {
+   "name": "Andela",
+   "ats": "ashby",
+   "token": "andela"
+  },
+  {
+   "name": "Turing",
+   "ats": "greenhouse",
+   "token": "turing"
+  },
+  {
+   "name": "Oowlish",
+   "ats": "lever",
+   "token": "oowlish"
+  },
+  {
+   "name": "Wizeline",
+   "ats": "greenhouse",
+   "token": "wizeline"
+  },
+  {
+   "name": "Arionkoder",
+   "ats": "greenhouse",
+   "token": "arionkoder"
+  },
+  {
+   "name": "Invisible",
+   "ats": "greenhouse",
+   "token": "invisible"
+  },
+  {
+   "name": "Anthropic",
+   "ats": "greenhouse",
+   "token": "anthropic"
+  },
+  {
+   "name": "OpenAI",
+   "ats": "ashby",
+   "token": "openai"
+  },
+  {
+   "name": "Perplexity",
+   "ats": "ashby",
+   "token": "perplexity"
+  },
+  {
+   "name": "Cohere",
+   "ats": "ashby",
+   "token": "cohere"
+  },
+  {
+   "name": "Pinecone",
+   "ats": "ashby",
+   "token": "pinecone"
+  },
+  {
+   "name": "Weaviate",
+   "ats": "ashby",
+   "token": "weaviate"
+  },
+  {
+   "name": "Mercor",
+   "ats": "ashby",
+   "token": "mercor"
+  },
+  {
+   "name": "Plaid",
+   "ats": "ashby",
+   "token": "plaid"
+  },
+  {
+   "name": "Brex",
+   "ats": "greenhouse",
+   "token": "brex"
+  },
+  {
+   "name": "Mercury",
+   "ats": "greenhouse",
+   "token": "mercury"
+  },
+  {
+   "name": "Gusto",
+   "ats": "greenhouse",
+   "token": "gusto"
+  },
+  {
+   "name": "Lattice",
+   "ats": "greenhouse",
+   "token": "lattice"
+  },
+  {
+   "name": "Coinbase",
+   "ats": "greenhouse",
+   "token": "coinbase"
+  },
+  {
+   "name": "Discord",
+   "ats": "greenhouse",
+   "token": "discord"
+  },
+  {
+   "name": "Reddit",
+   "ats": "greenhouse",
+   "token": "reddit"
+  },
+  {
+   "name": "Dropbox",
+   "ats": "greenhouse",
+   "token": "dropbox"
+  },
+  {
+   "name": "Squarespace",
+   "ats": "greenhouse",
+   "token": "squarespace"
+  },
+  {
+   "name": "Spotify",
+   "ats": "lever",
+   "token": "spotify"
+  },
+  {
+   "name": "Palantir",
+   "ats": "lever",
+   "token": "palantir"
+  },
+  {
+   "name": "Canva",
+   "ats": "smartrecruiters",
+   "token": "canva"
+  },
+  {
+   "name": "Hugging Face",
+   "ats": "workable",
+   "token": "huggingface"
+  },
+  {
+   "name": "Contentsquare",
+   "ats": "lever",
+   "token": "contentsquare"
+  },
+  {
+   "name": "DuckDuckGo",
+   "ats": "ashby",
+   "token": "duck-duck-go"
+  },
+  {
+   "name": "Doist",
+   "ats": "ashby",
+   "token": "todoist-inc"
+  },
+  {
+   "name": "Sourcegraph",
+   "ats": "greenhouse",
+   "token": "sourcegraph91"
+  },
+  {
+   "name": "Cursor",
+   "ats": "ashby",
+   "token": "cursor"
+  }
+ ]
+}
