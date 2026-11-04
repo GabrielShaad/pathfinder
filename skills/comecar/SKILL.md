@@ -24,7 +24,7 @@ All Pathfinder tools are named `mcp__plugin_pathfinder_pathfinder__<tool>`.
 
 ## 0. Ready?
 Call `setup_status`.
-- If the tool does not exist or `node_ok` is false, follow the `preparar` skill first, then come back here.
+- If the tool does not exist or `node_ok` is false, load the `pathfinder:preparar` skill with the Skill tool (do not read its file: the Skill tool fills in this computer's folders) and follow it first. Come back here only once the tools work.
 - If `has_profile` is true, ask what they want, then follow the matching skill and stop here:
   - "Atualizar meu currículo" → `curriculo` skill.
   - "Buscar vagas" → `buscar-vagas` skill.

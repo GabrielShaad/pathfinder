@@ -1,13 +1,22 @@
 # Installs Pathfinder's private Node.js runtime (Windows).
 #
-#   powershell.exe -NoProfile -ExecutionPolicy Bypass -File install-node.ps1 -Dest <dest-dir> [-Check | -UseSystem]
+#   powershell.exe -NoProfile -ExecutionPolicy Bypass -File install-node.ps1 -Dest <dest-dir> [-Check | -Verify | -UseSystem]
 #
-# Downloads a pinned LTS build from nodejs.org, checks its SHA-256 against the hash
-# below, and places node.exe in <dest-dir>\node\bin. Nothing outside <dest-dir> is
-# touched: no administrator rights, no PATH change. Messages are in Portuguese.
+# Places node.exe in <dest-dir>\node\bin, the exact path .mcp.json starts the server
+# with. A Node.js 22+ already installed on the computer is copied, with no download (set
+# PATHFINDER_NODE_SKIP_SYSTEM=1 to skip that). Otherwise a pinned LTS build is downloaded
+# from nodejs.org and checked against the SHA-256 below. Then the bundled server is
+# started once to prove it works: only that prints the final "PRONTO:" line.
+# Nothing outside <dest-dir> is touched: no administrator rights, no PATH change.
+# Messages are in Portuguese, without accents (this file stays ASCII for PowerShell 5.1).
+#
+#   -Check      OK / FALTANDO (exit 3); installs nothing
+#   -Verify     starts the server with the installed runtime; installs nothing
+#   -UseSystem  copy the computer's Node.js 22+ even when a download would work
 param(
-  [Parameter(Mandatory = $true)][string]$Dest,
+  [Parameter(Mandatory = $true)][AllowEmptyString()][string]$Dest,
   [switch]$Check,
+  [switch]$Verify,
   [switch]$UseSystem
 )
 $ErrorActionPreference = 'Stop'
@@ -25,47 +34,96 @@ function Fail([string]$Message) {
   exit 1
 }
 
+# The skill passes the plugin data folder, filled in by Claude Code. A placeholder that
+# was not filled in, or a relative path, means the command was improvised: installing
+# anywhere else would leave Pathfinder still unable to start.
+if (-not $Dest) { Fail 'informe a pasta de destino (uso: install-node.ps1 -Dest <pasta>).' }
+if ($Dest.Contains('$')) { Fail "a pasta de destino nao foi preenchida ($Dest). Nada foi instalado." }
+if (-not [System.IO.Path]::IsPathRooted($Dest)) { Fail "a pasta de destino precisa ser um caminho completo ($Dest). Nada foi instalado." }
+
 $Target = Join-Path $Dest 'node'
 $Bin = Join-Path $Target 'bin'
 $Exe = Join-Path $Bin 'node.exe'
+$Server = Join-Path (Split-Path -Parent $PSScriptRoot) 'dist\server.mjs'
 
 function Test-Installed {
   if (-not (Test-Path $Exe)) { return $false }
   $versionFile = Join-Path $Target 'VERSION'
   if (-not (Test-Path $versionFile)) { return $false }
-  if ((Get-Content $versionFile -Raw).Trim() -ne $NodeVersion) { return $false }
+  # A pinned download, or a copied system Node (SOURCE file).
+  $pinned = (Get-Content $versionFile -Raw).Trim() -eq $NodeVersion
+  if (-not $pinned -and -not (Test-Path (Join-Path $Target 'SOURCE'))) { return $false }
   try { & $Exe --version *> $null; return $LASTEXITCODE -eq 0 } catch { return $false }
 }
 
+# Starts the bundled server with bin\node (no ".exe", as .mcp.json names it), as Claude
+# Code will, and prints the final line. "PRONTO:" is the only output that means ready.
+function Confirm-Ready {
+  if (-not (Test-Path $Server)) { Fail "nao encontrei os arquivos do Pathfinder ($Server). Reinstale o plugin." }
+  $scratch = Join-Path $Dest (".verify-" + [Guid]::NewGuid().ToString('N').Substring(0, 8))
+  $result = ''
+  $code = 1
+  try {
+    $result = (& $Exe (Join-Path $PSScriptRoot 'verify-server.mjs') (Join-Path $Bin 'node') $Server $scratch | Out-String).Trim()
+    $code = $LASTEXITCODE
+  } catch { $result = $_.Exception.Message }
+  if ($code -eq 0) {
+    $version = (& $Exe --version | Out-String).Trim()
+    Write-Output "PRONTO: o Pathfinder iniciou com o componente $version em $Exe"
+    exit 0
+  }
+  Fail "o componente esta em $Target, mas o Pathfinder nao conseguiu iniciar com ele: $result"
+}
+
 if ($Check) {
-  if (Test-Installed) { Write-Output "OK $NodeVersion (instalado em $Target)"; exit 0 }
+  if (Test-Installed) { Write-Output "OK $((& $Exe --version | Out-String).Trim()) (instalado em $Target)"; exit 0 }
   Write-Output "FALTANDO: o componente ainda nao esta instalado em $Target"
   exit 3
 }
-if (Test-Installed) { Write-Output "OK $NodeVersion (ja estava instalado em $Target)"; exit 0 }
+if ($Verify) {
+  if (-not (Test-Installed)) { Write-Output "FALTANDO: o componente ainda nao esta instalado em $Target"; exit 3 }
+  Confirm-Ready
+}
+if (-not $UseSystem -and (Test-Installed)) {
+  Write-Output "OK $((& $Exe --version | Out-String).Trim()) (ja estava instalado em $Target)"
+  Confirm-Ready
+}
 
-# Plan B when downloads are blocked: copy node.exe from a Node.js 22+ the person
-# installed with the official installer.
+# The Node.js 22+ the person installed with the official installer (the README asks for
+# it), found on PATH or in the usual install folders: an app started before the install
+# does not see the new PATH yet. node.exe is copied, so nothing is downloaded.
 function Use-SystemNode {
+  $candidates = @()
   $cmd = Get-Command node.exe -ErrorAction SilentlyContinue
-  if (-not $cmd) { return $false }
-  $major = 0
-  try { $major = [int](& $cmd.Source -p "process.versions.node.split('.')[0]") } catch { return $false }
-  if ($major -lt 22) { return $false }
-  if (Test-Path $Target) { Remove-Item -Recurse -Force $Target }
-  New-Item -ItemType Directory -Force -Path $Bin | Out-Null
-  Copy-Item $cmd.Source $Exe
-  try { New-Item -ItemType HardLink -Path (Join-Path $Bin 'node') -Target $Exe | Out-Null } catch {}
-  $version = (& $Exe --version).Trim()
-  Set-Content -Path (Join-Path $Target 'VERSION') -Value $NodeVersion -NoNewline
-  # Straight to stdout: Write-Output here would become part of the return value.
-  [Console]::Out.WriteLine("OK $version (usando o Node.js ja instalado no computador: $($cmd.Source))")
-  return $true
+  if ($cmd) { $candidates += $cmd.Source }
+  if ($env:ProgramFiles) { $candidates += (Join-Path $env:ProgramFiles 'nodejs\node.exe') }
+  if (${env:ProgramFiles(x86)}) { $candidates += (Join-Path ${env:ProgramFiles(x86)} 'nodejs\node.exe') }
+  if ($env:LOCALAPPDATA) { $candidates += (Join-Path $env:LOCALAPPDATA 'Programs\nodejs\node.exe') }
+  foreach ($candidate in $candidates) {
+    if (-not (Test-Path $candidate)) { continue }
+    $major = 0
+    try { $major = [int](& $candidate -p "process.versions.node.split('.')[0]") } catch { continue }
+    if ($major -lt 22) { continue }
+    if (Test-Path $Target) { Remove-Item -Recurse -Force $Target }
+    New-Item -ItemType Directory -Force -Path $Bin | Out-Null
+    Copy-Item $candidate $Exe
+    try { New-Item -ItemType HardLink -Path (Join-Path $Bin 'node') -Target $Exe | Out-Null } catch {}
+    $version = (& $Exe --version | Out-String).Trim()
+    Set-Content -Path (Join-Path $Target 'VERSION') -Value $version -NoNewline
+    Set-Content -Path (Join-Path $Target 'SOURCE') -Value $candidate -NoNewline
+    # Straight to stdout: Write-Output here would become part of the return value.
+    [Console]::Out.WriteLine("OK $version (usando o Node.js ja instalado no computador: $candidate)")
+    return $true
+  }
+  return $false
 }
 
 if ($UseSystem) {
-  if (Use-SystemNode) { exit 0 }
+  if (Use-SystemNode) { Confirm-Ready }
   Fail 'nao encontrei um Node.js 22 ou mais novo instalado no computador.'
+}
+if (-not $env:PATHFINDER_NODE_SKIP_SYSTEM) {
+  if (Use-SystemNode) { Confirm-Ready }
 }
 
 $arch = if ($env:PROCESSOR_ARCHITEW6432) { $env:PROCESSOR_ARCHITEW6432 } else { $env:PROCESSOR_ARCHITECTURE }
@@ -87,7 +145,6 @@ try {
   Write-Output "Baixando o componente (Node.js $NodeVersion, cerca de 30 MB) de nodejs.org..."
   try { Invoke-WebRequest -Uri $url -OutFile $zip -UseBasicParsing }
   catch {
-    if (Use-SystemNode) { exit 0 }
     Fail "nao consegui baixar $url. Verifique a internet (ou proxy/antivirus da empresa) e tente de novo."
   }
 
@@ -124,3 +181,4 @@ try {
 finally {
   Remove-Item -Recurse -Force $work -ErrorAction SilentlyContinue
 }
+Confirm-Ready

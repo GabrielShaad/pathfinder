@@ -29,7 +29,7 @@ Use `get_jobs` or the last list if you need to find the code. Confirm in one lin
 
 ## 1. Ready?
 Call `setup_status`.
-- If the tool does not exist or `node_ok` is false, follow the `preparar` skill first.
+- If the tool does not exist or `node_ok` is false, load the `pathfinder:preparar` skill with the Skill tool (do not read its file: the Skill tool fills in this computer's folders) and follow it first.
 - If `has_profile` or `has_preferences` is false, explain in one line and follow the `comecar` skill.
 
 ## 2. Search

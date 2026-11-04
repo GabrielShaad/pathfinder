@@ -62,16 +62,32 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - name: an unfilled or relative destination installs nothing
+        run: |
+          if bash scripts/install-node.sh '${CLAUDE_PLUGIN_DATA}'; then exit 1; fi
+          if bash scripts/install-node.sh ""; then exit 1; fi
+          if bash scripts/install-node.sh relative/data; then exit 1; fi
+          test ! -e relative
       - name: a wrong hash installs nothing
         run: |
-          if PATHFINDER_NODE_EXPECTED_SHA256=0000 bash scripts/install-node.sh "$RUNNER_TEMP/bad"; then exit 1; fi
+          if PATHFINDER_NODE_SKIP_SYSTEM=1 PATHFINDER_NODE_EXPECTED_SHA256=0000 bash scripts/install-node.sh "$RUNNER_TEMP/bad"; then exit 1; fi
           test ! -e "$RUNNER_TEMP/bad/node"
-      - name: install, re-run and check
+      - name: download, re-run, check and verify
+        env:
+          PATHFINDER_NODE_SKIP_SYSTEM: "1"
         run: |
-          bash scripts/install-node.sh "$RUNNER_TEMP/data"
+          if bash scripts/install-node.sh "$RUNNER_TEMP/data" --check; then exit 1; fi
+          bash scripts/install-node.sh "$RUNNER_TEMP/data" | tail -n 1 | grep "^PRONTO:"
           bash scripts/install-node.sh "$RUNNER_TEMP/data" | grep "já estava instalado"
           bash scripts/install-node.sh "$RUNNER_TEMP/data" --check
+          bash scripts/install-node.sh "$RUNNER_TEMP/data" --verify | grep "^PRONTO:"
+          grep -q "^NODE_VERSION=\"$(cat "$RUNNER_TEMP/data/node/VERSION")\"" scripts/install-node.sh
           "$RUNNER_TEMP/data/node/bin/node" --version
+      - name: a Node.js 22+ already on the computer is linked, with no download
+        run: |
+          PATHFINDER_NODE_MIRROR=https://invalid.example bash scripts/install-node.sh "$RUNNER_TEMP/sys" | tail -n 1 | grep "^PRONTO:"
+          test -L "$RUNNER_TEMP/sys/node/bin/node"
+          bash scripts/install-node.sh "$RUNNER_TEMP/sys" --check
       - name: the bundled server starts on the private runtime
         run: |
           echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
@@ -84,21 +100,41 @@ jobs:
         shell: pwsh
     steps:
       - uses: actions/checkout@v4
+      - name: an unfilled or relative destination installs nothing (Windows PowerShell 5.1)
+        run: |
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest '${env:CLAUDE_PLUGIN_DATA}'
+          if ($LASTEXITCODE -eq 0) { exit 1 }
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest relative\data
+          if ($LASTEXITCODE -eq 0) { exit 1 }
+          if (Test-Path relative) { exit 1 }
+          exit 0
       - name: a wrong hash installs nothing (Windows PowerShell 5.1)
         run: |
+          $env:PATHFINDER_NODE_SKIP_SYSTEM = '1'
           $env:PATHFINDER_NODE_EXPECTED_SHA256 = '0000'
           powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\bad"
           if ($LASTEXITCODE -eq 0) { exit 1 }
           if (Test-Path "$env:RUNNER_TEMP\bad\node") { exit 1 }
           exit 0
-      - name: install, re-run and check (Windows PowerShell 5.1)
+      - name: download, re-run, check and verify (Windows PowerShell 5.1)
         run: |
-          Remove-Item Env:PATHFINDER_NODE_EXPECTED_SHA256 -ErrorAction SilentlyContinue
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\data"
+          $env:PATHFINDER_NODE_SKIP_SYSTEM = '1'
+          $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\data"
           if ($LASTEXITCODE -ne 0) { exit 1 }
+          if (-not (@($out)[-1] -like 'PRONTO:*')) { $out; exit 1 }
           powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\data" -Check
           if ($LASTEXITCODE -ne 0) { exit 1 }
+          $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\data" -Verify
+          if ($LASTEXITCODE -ne 0 -or -not (@($out)[-1] -like 'PRONTO:*')) { $out; exit 1 }
           & "$env:RUNNER_TEMP\data\node\bin\node.exe" --version
+      - name: a Node.js 22+ already on the computer is copied, with no download (Windows PowerShell 5.1)
+        run: |
+          $env:PATHFINDER_NODE_MIRROR = 'https://invalid.example'
+          $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\sys"
+          if ($LASTEXITCODE -ne 0 -or -not (@($out)[-1] -like 'PRONTO:*')) { $out; exit 1 }
+          if (-not (Test-Path "$env:RUNNER_TEMP\sys\node\SOURCE")) { exit 1 }
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/install-node.ps1 -Dest "$env:RUNNER_TEMP\sys" -Check
+          if ($LASTEXITCODE -ne 0) { exit 1 }
       - name: the configured command path (no .exe) starts the server
         shell: bash
         run: |
