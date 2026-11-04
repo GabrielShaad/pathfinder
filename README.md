@@ -19,8 +19,24 @@ Serve para qualquer área: marketing, tecnologia, vendas, atendimento, finanças
 
 1. **Uma assinatura do Claude**: Pro, Max ou superior.
 2. **O app do Claude para computador**, baixado em [claude.com/download](https://claude.com/download), aberto com a sua conta. Se você já usa o Claude Code no terminal, também serve: veja [Instalação pelo terminal](#instalação-pelo-terminal).
+3. **O Node.js, versão 22 ou mais nova**, instalado **antes** de abrir o Pathfinder. É um programa gratuito que o Pathfinder usa para gerar os PDFs e buscar as vagas. Veja [como instalar o Node.js](#como-instalar-o-nodejs) logo abaixo.
 
-Não precisa instalar mais nada. Na primeira vez, o próprio Pathfinder baixa o componente de que precisa e pede sua permissão antes.
+### Como instalar o Node.js
+
+Faça isso uma vez só, antes de adicionar o Pathfinder:
+
+1. Abra [nodejs.org/pt/download](https://nodejs.org/pt/download).
+2. Baixe o instalador **LTS** para o seu sistema:
+   - **Windows:** o arquivo **.msi** (Windows Installer);
+   - **Mac:** o arquivo **.pkg** (macOS Installer).
+3. Abra o arquivo baixado e clique em **Avançar/Continuar** até o fim, mantendo as opções que já vêm marcadas. O computador pode pedir a sua senha ou permissão de administrador.
+4. **Feche o app do Claude por completo e abra de novo** (se ele estava aberto), para que ele encontre o Node.js:
+   - **Mac:** menu **Claude → Sair** (ou Cmd+Q);
+   - **Windows:** feche a janela e, no ícone do Claude perto do relógio, clique com o botão direito e escolha **Sair**.
+
+Para conferir (opcional): abra o **Terminal** (Mac) ou o **PowerShell** (Windows), digite `node --version` e aperte Enter. Deve aparecer `v22` ou um número maior.
+
+> Se você não conseguir instalar o Node.js (por exemplo, num computador da empresa sem permissão de administrador), o Pathfinder tenta baixar uma cópia só para ele na primeira vez, numa pasta própria, sem senha e com a sua permissão. Instalar o Node.js antes é o caminho mais garantido.
 
 > **Importante:** o Pathfinder funciona na aba **Code** do app (é o "Claude Code", a parte do Claude que consegue criar arquivos no seu computador). No chat comum e no Cowork ele não consegue gerar os arquivos.
 
@@ -79,11 +95,12 @@ Escreva normalmente. Não precisa decorar comandos.
 Os mesmos atalhos também existem como comandos: `/pathfinder:comecar`, `/pathfinder:buscar-vagas`, `/pathfinder:curriculo` e `/pathfinder:preparar`.
 
 ### Na primeira vez
-O Pathfinder pede para instalar um componente gratuito, o Node.js, que gera os PDFs e busca as vagas:
-- ele fica numa pasta só do Pathfinder;
-- não pede senha e não muda nada no resto do computador;
+O Pathfinder confere se o Node.js está pronto e liga a parte dele que gera os PDFs e busca as vagas:
+- se o Node.js já está instalado, ele só o aponta para uma pasta do Pathfinder, sem baixar nada;
+- se não está, ele pede para baixar uma cópia gratuita do site oficial, que fica numa pasta só do Pathfinder;
+- nos dois casos, não pede senha e não muda nada no resto do computador;
 - quando aparecer o pedido de permissão, clique em **Permitir** (ou **Yes**/**Allow**);
-- depois é preciso reconectar uma vez:
+- no fim, ele testa se tudo funciona. Depois é preciso reconectar uma vez:
   - **no app**, abra uma **sessão nova** na aba Code e escreva **começar** de novo. O Pathfinder continua de onde parou;
   - **no terminal**, digite `/mcp`, escolha **pathfinder** e depois **Reconnect**.
 
@@ -137,7 +154,13 @@ Cada vaga da lista traz o link da página original. Os créditos e as condiçõe
   3. Confira se o app está aberto com a **mesma conta** em que você adicionou o plugin.
 - **O Pathfinder respondeu no chat comum ou no Cowork dizendo para usar a aba Code:** é isso mesmo. Os arquivos (currículo, lista, planilha) só são criados na aba **Code**.
 - **"As ferramentas do Pathfinder não aparecem" ou "o Pathfinder não está funcionando":** na aba Code, escreva **preparar o Pathfinder**. Ele confere e instala o que faltar.
-- **O download do componente falhou** (internet da empresa, antivírus): o Pathfinder oferece um plano B, que é instalar pelo site oficial nodejs.org e avisá-lo.
+- **O Pathfinder diz que já instalou, mas em cada sessão nova pede para instalar de novo:**
+  1. Confira se o Node.js está instalado (veja [como instalar o Node.js](#como-instalar-o-nodejs)).
+  2. Feche o app do Claude **por completo** (no Mac, Cmd+Q; no Windows, também pelo ícone perto do relógio) e abra de novo. Só abrir uma sessão nova às vezes não basta.
+  3. Em **Customize → Plugins**, confira se o Pathfinder está ligado.
+  4. Abra uma sessão local nova na aba Code e escreva **preparar o Pathfinder**. Ele testa o componente e diz exatamente o que falta.
+  5. Se continuar, abra um aviso em [github.com/GabrielShaad/pathfinder/issues](https://github.com/GabrielShaad/pathfinder/issues) com um print da mensagem.
+- **O download do componente falhou** (internet da empresa, antivírus): instale o Node.js pelo site oficial (veja [como instalar o Node.js](#como-instalar-o-nodejs)), feche e abra o app do Claude e escreva **preparar o Pathfinder**. Ele passa a usar esse Node.js, sem baixar nada.
 - **A planilha não atualizou:** ela provavelmente estava aberta. O Pathfinder salva uma cópia "(atualizado ...)". Feche a planilha e peça uma nova busca.
 - **Atualizar o Pathfinder:**
   - **App:** em **Customize → Plugins**, use **Check for updates** (Verificar atualizações) no marketplace do Pathfinder, ou ligue **Sync automatically** para receber as versões novas sozinho.
@@ -152,7 +175,7 @@ Cada vaga da lista traz o link da página original. Os créditos e as condiçõe
 
 ## For maintainers
 
-Claude Code plugin = skills (`skills/`) + subagents (`agents/`) + a bundled MCP server (`dist/server.mjs`, built from `src/`) running on a private Node.js runtime that `scripts/install-node.{sh,ps1}` places in `${CLAUDE_PLUGIN_DATA}/node`. Decisions are in [`docs/adr`](docs/adr). Derived from the private Horizon project.
+Claude Code plugin = skills (`skills/`) + subagents (`agents/`) + a bundled MCP server (`dist/server.mjs`, built from `src/`) running on a Node.js 22+ that `scripts/install-node.{sh,ps1}` places in `${CLAUDE_PLUGIN_DATA}/node` (a link to the system Node, or a pinned download), then proves with `scripts/verify-server.mjs` that the server starts from that exact path. Decisions are in [`docs/adr`](docs/adr). Derived from the private Horizon project.
 
 ```bash
 pnpm install

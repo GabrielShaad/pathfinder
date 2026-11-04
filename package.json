@@ -1,6 +1,6 @@
 {
   "name": "pathfinder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Claude Code plugin: an interview, one ATS-friendly resume and an on-demand job search for people in Brazil, in any field.",
   "type": "module",

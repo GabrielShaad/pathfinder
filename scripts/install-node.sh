@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 # Installs Pathfinder's private Node.js runtime (macOS and Linux).
 #
-#   bash install-node.sh <dest-dir> [--check | --use-system]
+#   bash install-node.sh <dest-dir> [--check | --verify | --use-system]
 #
-# Downloads a pinned LTS build from nodejs.org, checks its SHA-256 against the hash
-# below, and places it in <dest-dir>/node (bin/node). Nothing outside <dest-dir> is
-# touched: no admin password, no PATH change. Messages are in Portuguese for the person.
+# Places a Node.js 22+ in <dest-dir>/node (bin/node), the exact path .mcp.json starts
+# the server with. A Node.js 22+ already installed on the computer is linked, with no
+# download (set PATHFINDER_NODE_SKIP_SYSTEM=1 to skip that). Otherwise a pinned LTS build
+# is downloaded from nodejs.org and checked against the SHA-256 below. Then the bundled
+# server is started once to prove it works: only that prints the final "PRONTO:" line.
+# Nothing outside <dest-dir> is touched: no admin password, no PATH change.
+# Messages are in Portuguese for the person.
+#
+#   --check       OK / FALTANDO (exit 3); installs nothing
+#   --verify      starts the server with the installed runtime; installs nothing
+#   --use-system  link the computer's Node.js 22+ even when a download would work
 set -euo pipefail
 
 NODE_VERSION="v24.22.2"
@@ -26,8 +34,23 @@ fail() {
 }
 
 DEST="${1:-}"
+MODE="${2:-}"
 [ -n "$DEST" ] || fail "informe a pasta de destino (uso: install-node.sh <pasta> [--check])."
+# The skill passes the plugin data folder, filled in by Claude Code. A placeholder that
+# was not filled in, or a relative path, means the command was improvised: installing
+# anywhere else would leave Pathfinder still unable to start.
+case "$DEST" in
+  *'$'*) fail "a pasta de destino não foi preenchida ($DEST). Nada foi instalado." ;;
+  /*) ;;
+  *) fail "a pasta de destino precisa ser um caminho completo ($DEST). Nada foi instalado." ;;
+esac
+case "$MODE" in
+  "" | --check | --verify | --use-system) ;;
+  *) fail "opção desconhecida: $MODE" ;;
+esac
 TARGET="$DEST/node"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SERVER="$(dirname "$SCRIPT_DIR")/dist/server.mjs"
 
 case "$(uname -s)" in
   Darwin) OS="darwin" ;;
@@ -43,40 +66,65 @@ PLATFORM="$OS-$ARCH"
 
 installed() {
   [ -x "$TARGET/bin/node" ] && "$TARGET/bin/node" --version >/dev/null 2>&1 || return 1
-  # A pinned download, or a linked system Node that still works (plan B).
-  [ "$(cat "$TARGET/VERSION" 2>/dev/null || true)" = "$NODE_VERSION" ] || [ -L "$TARGET/bin/node" ]
+  # A pinned download, or a linked system Node that still works and is new enough.
+  [ "$(cat "$TARGET/VERSION" 2>/dev/null || true)" = "$NODE_VERSION" ] && return 0
+  [ -L "$TARGET/bin/node" ] && [ "$("$TARGET/bin/node" -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0)" -ge 22 ] 2>/dev/null
 }
 
-if [ "${2:-}" = "--check" ]; then
+# Starts the bundled server with "$TARGET/bin/node", as Claude Code will, and prints the
+# final line. "PRONTO:" is the only output that means Pathfinder is ready.
+ready() {
+  local result
+  [ -f "$SERVER" ] || fail "não encontrei os arquivos do Pathfinder ($SERVER). Reinstale o plugin."
+  if result="$("$TARGET/bin/node" "$SCRIPT_DIR/verify-server.mjs" "$TARGET/bin/node" "$SERVER" "$DEST/.verify-$$" 2>&1)"; then
+    echo "PRONTO: o Pathfinder iniciou com o componente $("$TARGET/bin/node" --version) em $TARGET/bin/node"
+    exit 0
+  fi
+  fail "o componente está em $TARGET, mas o Pathfinder não conseguiu iniciar com ele: $result"
+}
+
+if [ "$MODE" = "--check" ]; then
   if installed; then echo "OK $("$TARGET/bin/node" --version) (instalado em $TARGET)"; exit 0; fi
   echo "FALTANDO: o componente ainda não está instalado em $TARGET"
   exit 3
 fi
 
-if installed; then
-  echo "OK $NODE_VERSION (já estava instalado em $TARGET)"
-  exit 0
+if [ "$MODE" = "--verify" ]; then
+  installed || { echo "FALTANDO: o componente ainda não está instalado em $TARGET"; exit 3; }
+  ready
 fi
 
-# Plan B when downloads are blocked: reuse a Node.js 22+ the person installed with the
-# official installer, by linking it into the private location.
+if [ "$MODE" != "--use-system" ] && installed; then
+  echo "OK $("$TARGET/bin/node" --version) (já estava instalado em $TARGET)"
+  ready
+fi
+
+# The Node.js 22+ the person installed with the official installer (the README asks for
+# it), found on PATH or in the usual install locations, which a desktop app's PATH may
+# miss. It is linked into the private location, so nothing is downloaded.
 use_system() {
-  local system major
-  system="$(command -v node 2>/dev/null || true)"
-  [ -n "$system" ] || return 1
-  major="$("$system" -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0)"
-  [ "$major" -ge 22 ] 2>/dev/null || return 1
-  rm -rf "$TARGET"
-  mkdir -p "$TARGET/bin"
-  ln -s "$system" "$TARGET/bin/node"
-  "$system" --version | tr -d '\n' >"$TARGET/VERSION"
-  echo "OK $("$system" --version) (usando o Node.js já instalado no computador: $system)"
-  return 0
+  local candidate major
+  for candidate in "$(command -v node 2>/dev/null || true)" /usr/local/bin/node /opt/homebrew/bin/node /usr/bin/node; do
+    [ -n "$candidate" ] && [ -x "$candidate" ] || continue
+    major="$("$candidate" -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0)"
+    [ "$major" -ge 22 ] 2>/dev/null || continue
+    rm -rf "$TARGET"
+    mkdir -p "$TARGET/bin"
+    ln -s "$candidate" "$TARGET/bin/node"
+    "$candidate" --version | tr -d '\n' >"$TARGET/VERSION"
+    echo "OK $("$candidate" --version) (usando o Node.js já instalado no computador: $candidate)"
+    return 0
+  done
+  return 1
 }
 
-if [ "${2:-}" = "--use-system" ]; then
+if [ "$MODE" = "--use-system" ]; then
   use_system || fail "não encontrei um Node.js 22 ou mais novo instalado no computador."
-  exit 0
+  ready
+fi
+
+if [ -z "${PATHFINDER_NODE_SKIP_SYSTEM:-}" ] && use_system; then
+  ready
 fi
 
 if [ "$OS" = "linux" ] && [ -f /etc/alpine-release ]; then
@@ -96,7 +144,6 @@ ARCHIVE="node-$NODE_VERSION-$PLATFORM.tar.gz"
 URL="${PATHFINDER_NODE_MIRROR:-https://nodejs.org/dist}/$NODE_VERSION/$ARCHIVE"
 echo "Baixando o componente (Node.js $NODE_VERSION, cerca de 50 MB) de nodejs.org..."
 if ! curl -fsSL --retry 2 --connect-timeout 20 -o "$WORK/$ARCHIVE" "$URL"; then
-  use_system && exit 0
   fail "não consegui baixar $URL. Verifique a internet (ou proxy/antivírus da empresa) e tente de novo."
 fi
 
@@ -120,3 +167,4 @@ mv "$STAGE" "$TARGET"
 rm -rf "$DEST/node.old"
 
 echo "OK $NODE_VERSION (instalado em $TARGET)"
+ready
