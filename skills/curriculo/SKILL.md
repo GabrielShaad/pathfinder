@@ -14,7 +14,7 @@ Talk in Portuguese (Brazil) unless the person writes in another language. Use pl
 All Pathfinder tools are named `mcp__plugin_pathfinder_pathfinder__<tool>`.
 
 1. Call `setup_status`.
-   - If the tools are missing or `node_ok` is false, follow the `preparar` skill.
+   - If the tools are missing or `node_ok` is false, load the `pathfinder:preparar` skill with the Skill tool (do not read its file: the Skill tool fills in this computer's folders) and follow it.
    - If there is no profile, follow the `comecar` skill.
 2. Call `get_profile`. Ask what they want to change, unless they already said.
    - **New job:** company, role, start month/year, and whether they still work there. If yes, set the end of the previous current role, asking its month and year. Ask 2–4 things they did or achieved there, with numbers if they know them. Add the role at the top, since roles go newest first. Facts get ids prefixed with the role id and `source: interview`.

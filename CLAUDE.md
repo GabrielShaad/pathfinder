@@ -23,7 +23,7 @@ Claude Code plugin, shared publicly, derived from the private Horizon project. P
 - `src/state`: workspace paths, atomic writes, YAML/JSON store.
 - `src/server`: `tools.ts` (pure, tested) and `index.ts` (MCP registration).
 - `skills/`, `agents/`, `hooks/hooks.json`, `.mcp.json`, `.claude-plugin/`.
-- `scripts/install-node.{sh,ps1}`: the private runtime (ADR-0002).
+- `scripts/install-node.{sh,ps1}`: the runtime in `${CLAUDE_PLUGIN_DATA}/node`, system Node first, then a pinned download; `scripts/verify-server.mjs` proves the server starts from it and prints the `PRONTO:` line the `preparar` skill trusts (ADR-0002).
 - `config/areas.json` and `config/companies-tech.json`.
 - `dist/server.mjs`: the committed bundle.
 

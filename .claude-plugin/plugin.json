@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "pathfinder",
   "displayName": "Pathfinder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Seu assistente de busca de emprego: entrevista, currículo otimizado para ATS (PDF e Word), busca de vagas remotas e nacionais, cartas de apresentação e uma planilha para acompanhar. Tudo no seu computador.",
   "author": {
     "name": "Gabriel Alexandre",
